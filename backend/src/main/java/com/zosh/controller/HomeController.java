@@ -18,13 +18,10 @@ public class HomeController {
     private final HomeService homeService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> home(){
+    public ResponseEntity<ApiResponse> home() {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setMessage("Ecommerce multi vendor system");
         return new ResponseEntity<>(apiResponse, HttpStatus.ACCEPTED);
     }
-
-
-
 
 }
