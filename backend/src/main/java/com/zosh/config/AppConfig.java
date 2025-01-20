@@ -1,9 +1,7 @@
 package com.zosh.config;
 
-import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +15,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter; // For Spring Security CorsFilter
 import org.springframework.web.client.RestTemplate; // For Spring RestTemplate
 
+import java.util.Collections;
+
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
@@ -24,14 +24,11 @@ public class AppConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow OPTIONS preflight
-                        .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/api/products/*/reviews").permitAll()
-                        .anyRequest().permitAll())
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) // Allow all requests
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())); // Register CORS configuration
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())); // Register unrestricted CORS
+                                                                                    // configuration
 
         return http.build();
     }
@@ -39,16 +36,12 @@ public class AppConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "https://zosh-bazzar-zosh.vercel.app",
-                "http://localhost:3000",
-                "https://ecom-multi-vendor-97r14hrf8-hamza-hs-projects.vercel.app",
-                "https://ecom-multi-vendor.vercel.app"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "X-Requested-With"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        configuration.setAllowCredentials(true); // Required for cookies
-        configuration.setMaxAge(3600L); // Cache preflight responses
+        configuration.setAllowedOrigins(Collections.singletonList("*")); // Allow all origins
+        configuration.setAllowedMethods(Collections.singletonList("*")); // Allow all HTTP methods
+        configuration.setAllowedHeaders(Collections.singletonList("*")); // Allow all headers
+        configuration.setExposedHeaders(Collections.singletonList("*")); // Expose all headers
+        configuration.setAllowCredentials(false); // Credentials are optional for testing
+        configuration.setMaxAge(3600L); // Cache preflight response for 1 hour
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

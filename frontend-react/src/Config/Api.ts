@@ -8,7 +8,7 @@ export const DEPLOYED_URL = "https://ecommultivendor-production.up.railway.app";
 export const api = axios.create({
   // baseURL: API_URL, 
   baseURL: DEPLOYED_URL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
   },
