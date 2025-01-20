@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter; // For Spring Security CorsFilter
+import org.springframework.web.client.RestTemplate; // For Spring RestTemplate
 
 @Configuration
 @EnableWebSecurity
