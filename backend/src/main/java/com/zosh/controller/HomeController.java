@@ -21,7 +21,9 @@ public class HomeController {
     public ResponseEntity<ApiResponse> home() {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setMessage("Ecommerce multi vendor system");
+        // apiResponse.setStatus(true);
         return new ResponseEntity<>(apiResponse, HttpStatus.ACCEPTED);
+
     }
 
 }
