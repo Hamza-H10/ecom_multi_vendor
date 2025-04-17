@@ -67,7 +67,7 @@ Technology Stack
 
 1.  **Seller Dashboard**
     
-    *   Earning Graph (Today, last 7 days, last 12 month), and seller Report
+    *   Earning Graph (Today, last 7 days, last 12 month), and seller Report.
         
 2.  **Seller Reports**
     
