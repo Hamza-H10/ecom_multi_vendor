@@ -6,7 +6,11 @@ Technology Stack
 *   **Frontend**: React, TypeScript, Redux Toolkit, MUI, Tailwind CSS, React Chart, Formik, Yup, React Router DOM, Axios
     
 *   **Payment Gateways**: Razorpay & Stripe
-    
+
+### **Roles**
+ 1. CUSTOMER
+ 2.	SELLER
+ 3.	ADMIN
 
 ### **Customer Features**
 
