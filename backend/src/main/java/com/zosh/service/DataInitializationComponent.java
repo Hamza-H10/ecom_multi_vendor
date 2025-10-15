@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@Profile("!test")  // Don't run this component during tests
+@Profile("!test") // Don't run this component during tests
 public class DataInitializationComponent implements CommandLineRunner {
 
     private final UserRepository userRepository;
